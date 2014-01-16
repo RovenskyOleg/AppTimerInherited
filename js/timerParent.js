@@ -27,6 +27,7 @@ function Timer() {
     this.normalize = function() {
         this.seconds = ((this.seconds < 10) ? "0" : "") + this.seconds;
         this.minutes = ((this.minutes < 10) ? "0" : "") + this.minutes;
+        this.hours = ((this.hours < 10) ? "0" : "") + this.hours;
         this.hours = (this.hours < 24) ? this.hours : this.hours-24;
         this.hours = (this.hours === 0) ? 0 : this.hours;
         this.day = ((this.day < 10) ? "0" : "") + this.day;
