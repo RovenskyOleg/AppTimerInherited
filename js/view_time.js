@@ -1,60 +1,39 @@
 function DisplayingTime(value) {
 
-    var flag = true,
-        date = false,
-        timer_parent,
-        short_time,
-        full_time,
-        date_time;
+    var timer,
+    time_form = {
+        short_timer: new ShortTime(),
+        full_timer: new FullTime(),
+        date_timer: new DateTime()
+    };
 
-    timer_parent = new Timer();
-
-    ShortTime.prototype = timer_parent;
-
-    short_time = new ShortTime();
-
-    FullTime.prototype = timer_parent;
-
-    full_time = new FullTime();
-
-    DateTime.prototype = timer_parent;
-
-    date_time = new DateTime();
-
-    console.log(timer_parent.getDate());
-    console.log(short_time.getDate());
-    console.log(date_time.getDate());
+    timer = new ShortTime();
 
     function leftClick() {
-        changeTimer();
-        flag = !flag; 
+        if(timer instanceof ShortTime) {
+            timer = time_form.full_timer;
+        } else {
+            timer = time_form.short_timer;
+        }
     }
 
     function rightClick(e) {
-        flag = true;
-        date = !date;
-        changeTimer();
-        e.preventDefault(); 
+        if(timer instanceof ShortTime || timer instanceof FullTime) {
+            timer = time_form.date_timer;
+        } else {
+            timer = time_form.short_timer;
+        }
+
+        e.preventDefault();
     }
 
     value.addEventListener ("click", leftClick, false);
     value.addEventListener ("contextmenu", rightClick, false);
-    
-
-    var callback = timer_parent.getDate();
-
-    function changeTimer() {
-        callback = date_time.getDate();
-        if(!date) {
-            callback = flag ? short_time.getDate() : full_time.getDate();
-        }
-        value.innerHTML = callback;
-    }
 
     function start() {
-        changeTimer();
+        value.innerHTML = timer.render();
     }
-    
+
     setInterval(start,500);
 
     return this;
