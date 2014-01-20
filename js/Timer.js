@@ -1,14 +1,7 @@
 "use strict";
 
 function Timer() {
-
-    this.time_date = null;
-    this.hours = null;
-    this.minutes = null;
-    this.seconds = null;
-    this.month = null;
-    this.day = null;
-    this.year = null;
+    var time_date;
 
     this.render = function() {
         var mathod = this.getDate();
@@ -18,8 +11,6 @@ function Timer() {
     this.normalize = function(arg) {
         return (arg < 10) ? '0' + arg : arg;
     };
-
-    var time_date;
 
     this.getDate = function() {
         time_date = new Date();
